@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">LISTA ZAKUPÓW</string>
+
+    <string name="go_to_product_list_activity_button_text">LISTA ZAKUPÓW</string>
+    <string name="go_to_options_activity_button_text">OPCJE</string>
+
+    <string name="save_button_text">ZAPISZ</string>
+    <string name="delete_button_text">USUŃ</string>
+    <string name="add_button_text">DODAJ</string>
+
+    <string name="saved_toast_text">Zapisano</string>
+
+    <string name="title_size_label">Rozmiar nazwy aplikacji:</string>
+    <string name="title_color_label">Kolor nazwy aplikacji:</string>
+
+    <string name="product_name_label">Nazwa:</string>
+    <string name="product_quantity_label">Ilość:</string>
+    <string name="product_price_label">Cena:</string>
+    <string name="product_is_bought_label">Kupione:</string>
+
+    <string name="products_list_name_label">Nazwa</string>
+    <string name="products_list_quantity_label">Ilość</string>
+    <string name="products_list_price_label">Cena</string>
+    <string name="products_list_is_bought_label">Kupione</string>
+
+    <string-array name="title_sizes_array">
+        <item>Mały</item>
+        <item>Duży</item>
+    </string-array>
+
+    <string-array name="title_colors_array">
+        <item>Różowy</item>
+        <item>Czarny</item>
+    </string-array>
+
+    <string name="db_name">SHOPPING_LIST_DB</string>
+
+    <string name="fields_warning_message">Wszystkie pola muszą być wypełnione</string>
+    <string name="loading_product_error_message">Błąd: nie udało się wczytać produktu</string>
+</resources>
