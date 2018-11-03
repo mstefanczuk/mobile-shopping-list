@@ -6,7 +6,7 @@ import lombok.Data;
 public class Product {
     private int id;
     private String name;
-    private int price;
+    private double price;
     private int quantity;
     private boolean bought;
 }

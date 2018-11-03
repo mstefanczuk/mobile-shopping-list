@@ -37,4 +37,6 @@
 
     <string name="fields_warning_message">Wszystkie pola muszą być wypełnione</string>
     <string name="loading_product_error_message">Błąd: nie udało się wczytać produktu</string>
+
+    <string name="price_pattern">%.2fzł</string>
 </resources>

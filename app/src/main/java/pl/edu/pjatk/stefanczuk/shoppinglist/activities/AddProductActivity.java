@@ -58,7 +58,7 @@ public class AddProductActivity extends Activity {
     private void createNewProduct() {
         String name = addedNameEditText.getText().toString();
         int quantity = Integer.parseInt(addedQuantityEditText.getText().toString());
-        int price = Integer.parseInt(addedPriceEditText.getText().toString());
+        double price = Double.parseDouble(addedPriceEditText.getText().toString());
         dbManager.insert(name, quantity, price, false);
     }
 

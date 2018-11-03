@@ -24,7 +24,7 @@ public class DBManager {
         databaseHelper.close();
     }
 
-    public void insert(String name, int quantity, int price, boolean isBought) {
+    public void insert(String name, int quantity, double price, boolean isBought) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHelper.NAME, name);
         contentValues.put(DatabaseHelper.QUANTITY, quantity);
@@ -44,7 +44,7 @@ public class DBManager {
         return cursor;
     }
 
-    public void update(int id, String name, int quantity, int price, boolean isBought) {
+    public void update(int id, String name, int quantity, double price, boolean isBought) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DatabaseHelper.NAME, name);
         contentValues.put(DatabaseHelper.QUANTITY, quantity);

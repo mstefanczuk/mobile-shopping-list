@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     NAME + " TEXT, " +
                     QUANTITY + " INTEGER, " +
-                    PRICE + " INTEGER, " +
+                    PRICE + " REAL, " +
                     IS_BOUGHT + " INTEGER);";
 
     DatabaseHelper(Context context) {

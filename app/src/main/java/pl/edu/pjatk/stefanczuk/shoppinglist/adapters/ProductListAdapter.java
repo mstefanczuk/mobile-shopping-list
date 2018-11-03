@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -41,7 +40,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     @NonNull
     @Override
     public ProductListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.product, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.product, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -49,7 +49,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Product product = productList.get(i);
         viewHolder.setProduct(product);
-        viewHolder.getPriceTextView().setText(String.valueOf(product.getPrice()));
+        viewHolder.getPriceTextView().setText(String.format(context.getString(R.string.price_pattern),
+                product.getPrice()));
         viewHolder.getNameTextView().setText(String.valueOf(product.getName()));
         viewHolder.getQuantityTextView().setText(String.valueOf(product.getQuantity()));
         if (product.isBought()) {
@@ -76,7 +77,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         product.setId(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.ID)));
         product.setName(cursor.getString(cursor.getColumnIndex(DatabaseHelper.NAME)));
         product.setQuantity(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.QUANTITY)));
-        product.setPrice(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.PRICE)));
+        product.setPrice(cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.PRICE)));
         product.setBought(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.IS_BOUGHT)) == 1);
         productList.add(product);
     }
@@ -115,10 +116,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
 
         private void setCheckboxOnCheckedChangeListener() {
-            isBoughtCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            isBoughtCheckbox.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    product.setBought(isChecked);
+                public void onClick(View v) {
+                    product.setBought(!product.isBought());
                     dbManager.update(product.getId(), product.getName(), product.getQuantity(),
                             product.getPrice(), product.isBought());
                 }

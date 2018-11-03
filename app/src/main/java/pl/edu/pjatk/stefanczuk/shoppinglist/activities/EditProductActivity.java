@@ -60,7 +60,7 @@ public class EditProductActivity extends Activity {
         }
         editedNameEditText.setText(intent.getStringExtra("editedProductName"));
         editedQuantityEditText.setText(String.valueOf(intent.getIntExtra("editedProductQuantity", 0)));
-        editedPriceEditText.setText(String.valueOf(intent.getIntExtra("editedProductPrice", 0)));
+        editedPriceEditText.setText(String.valueOf(intent.getDoubleExtra("editedProductPrice", 0)));
         editedIsBoughtSwitch.setChecked(intent.getBooleanExtra("editedProductIsBought", false));
     }
 
@@ -87,7 +87,7 @@ public class EditProductActivity extends Activity {
     private void updateProduct() {
         dbManager.update(editedProductId, editedNameEditText.getText().toString(),
                 Integer.valueOf(editedQuantityEditText.getText().toString()),
-                Integer.valueOf(editedPriceEditText.getText().toString()),
+                Double.valueOf(editedPriceEditText.getText().toString()),
                 editedIsBoughtSwitch.isChecked());
     }
 }
