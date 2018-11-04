@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import java.util.HashMap;
 import java.util.Objects;
@@ -106,11 +107,46 @@ public class ProductsProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        int count;
+
+        switch (uriMatcher.match(uri)) {
+            case PRODUCTS:
+                count = dbManager.getDatabase().delete(DBHelper.PRODUCTS_TABLE_NAME, selection, selectionArgs);
+                break;
+            case PRODUCTS_ID:
+                String id = uri.getLastPathSegment();
+                count = dbManager.getDatabase().delete(DBHelper.PRODUCTS_TABLE_NAME,
+                        DBHelper.ID + " = " + id +
+                                (!TextUtils.isEmpty(selection) ? " AND (" +
+                                        selection + ')' : ""), selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported URI " + uri);
+        }
+
+        Objects.requireNonNull(getContext()).getContentResolver().notifyChange(uri, null);
+        return count;
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection,
+                      @Nullable String[] selectionArgs) {
+        int count;
+
+        switch (uriMatcher.match(uri)) {
+            case PRODUCTS:
+                count = dbManager.getDatabase().update(DBHelper.PRODUCTS_TABLE_NAME, values, selection, selectionArgs);
+                break;
+            case PRODUCTS_ID:
+                count = dbManager.getDatabase().update(DBHelper.PRODUCTS_TABLE_NAME, values,
+                        DBHelper.ID + " = " + uri.getLastPathSegment() +
+                                (!TextUtils.isEmpty(selection) ? " AND (" +
+                                        selection + ')' : ""), selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported URI " + uri);
+        }
+        Objects.requireNonNull(getContext()).getContentResolver().notifyChange(uri, null);
+        return count;
     }
 }
