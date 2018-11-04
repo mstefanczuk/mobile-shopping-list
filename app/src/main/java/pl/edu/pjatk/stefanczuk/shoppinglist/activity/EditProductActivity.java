@@ -1,4 +1,4 @@
-package pl.edu.pjatk.stefanczuk.shoppinglist.activities;
+package pl.edu.pjatk.stefanczuk.shoppinglist.activity;
 
 import android.app.Activity;
 import android.content.Intent;

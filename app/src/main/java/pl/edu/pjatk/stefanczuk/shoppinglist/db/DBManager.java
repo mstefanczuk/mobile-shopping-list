@@ -5,10 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import lombok.Getter;
+
 public class DBManager {
 
-    private DatabaseHelper databaseHelper;
+    private DBHelper dbHelper;
     private Context context;
+    @Getter
     private SQLiteDatabase database;
 
     public DBManager(Context context) {
@@ -16,27 +19,31 @@ public class DBManager {
     }
 
     public void open() {
-        databaseHelper = new DatabaseHelper(context);
-        database = databaseHelper.getWritableDatabase();
+        dbHelper = new DBHelper(context);
+        database = dbHelper.getWritableDatabase();
+    }
+
+    public boolean isDatabaseAvailable() {
+         return database != null;
     }
 
     public void close() {
-        databaseHelper.close();
+        dbHelper.close();
     }
 
     public void insert(String name, int quantity, double price, boolean isBought) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseHelper.NAME, name);
-        contentValues.put(DatabaseHelper.QUANTITY, quantity);
-        contentValues.put(DatabaseHelper.PRICE, price);
-        contentValues.put(DatabaseHelper.IS_BOUGHT, isBought);
-        database.insert(DatabaseHelper.PRODUCTS_TABLE_NAME, null, contentValues);
+        contentValues.put(DBHelper.NAME, name);
+        contentValues.put(DBHelper.QUANTITY, quantity);
+        contentValues.put(DBHelper.PRICE, price);
+        contentValues.put(DBHelper.IS_BOUGHT, isBought);
+        database.insert(DBHelper.PRODUCTS_TABLE_NAME, null, contentValues);
     }
 
     public Cursor fetchAll() {
-        String[] columns = new String[]{DatabaseHelper.ID, DatabaseHelper.NAME,
-                DatabaseHelper.QUANTITY, DatabaseHelper.PRICE, DatabaseHelper.IS_BOUGHT};
-        Cursor cursor = database.query(DatabaseHelper.PRODUCTS_TABLE_NAME, columns, null,
+        String[] columns = new String[]{DBHelper.ID, DBHelper.NAME,
+                DBHelper.QUANTITY, DBHelper.PRICE, DBHelper.IS_BOUGHT};
+        Cursor cursor = database.query(DBHelper.PRODUCTS_TABLE_NAME, columns, null,
                 null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
@@ -46,16 +53,16 @@ public class DBManager {
 
     public void update(int id, String name, int quantity, double price, boolean isBought) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(DatabaseHelper.NAME, name);
-        contentValues.put(DatabaseHelper.QUANTITY, quantity);
-        contentValues.put(DatabaseHelper.PRICE, price);
-        contentValues.put(DatabaseHelper.IS_BOUGHT, isBought);
-        database.update(DatabaseHelper.PRODUCTS_TABLE_NAME, contentValues,
-                DatabaseHelper.ID + " = " + id, null);
+        contentValues.put(DBHelper.NAME, name);
+        contentValues.put(DBHelper.QUANTITY, quantity);
+        contentValues.put(DBHelper.PRICE, price);
+        contentValues.put(DBHelper.IS_BOUGHT, isBought);
+        database.update(DBHelper.PRODUCTS_TABLE_NAME, contentValues,
+                DBHelper.ID + " = " + id, null);
     }
 
     public void delete(int id) {
-        database.delete(DatabaseHelper.PRODUCTS_TABLE_NAME,
-                DatabaseHelper.ID + " = " + id, null);
+        database.delete(DBHelper.PRODUCTS_TABLE_NAME,
+                DBHelper.ID + " = " + id, null);
     }
 }

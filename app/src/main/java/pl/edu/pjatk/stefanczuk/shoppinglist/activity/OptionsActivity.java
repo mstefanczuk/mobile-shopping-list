@@ -1,4 +1,4 @@
-package pl.edu.pjatk.stefanczuk.shoppinglist.activities;
+package pl.edu.pjatk.stefanczuk.shoppinglist.activity;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import pl.edu.pjatk.stefanczuk.shoppinglist.R;
 

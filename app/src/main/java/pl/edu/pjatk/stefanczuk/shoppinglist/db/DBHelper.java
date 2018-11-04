@@ -6,11 +6,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import pl.edu.pjatk.stefanczuk.shoppinglist.R;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
 
-    static final String PRODUCTS_TABLE_NAME = "PRODUCTS";
+    public static final String PRODUCTS_TABLE_NAME = "PRODUCTS";
 
     public static final String ID = "ID";
     public static final String NAME = "NAME";
@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     PRICE + " REAL, " +
                     IS_BOUGHT + " INTEGER);";
 
-    DatabaseHelper(Context context) {
+    DBHelper(Context context) {
         super(context, context.getString(R.string.db_name), null, DATABASE_VERSION);
     }
 

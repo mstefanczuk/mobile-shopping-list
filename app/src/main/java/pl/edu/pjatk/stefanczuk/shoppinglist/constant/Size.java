@@ -1,14 +1,14 @@
-package pl.edu.pjatk.stefanczuk.shoppinglist.enums;
+package pl.edu.pjatk.stefanczuk.shoppinglist.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Color {
+public enum Size {
 
-    PINK("Różowy"),
-    BLACK("Czarny");
+    SMALL("Mały"),
+    BIG("Duży");
 
     private String value;
 }

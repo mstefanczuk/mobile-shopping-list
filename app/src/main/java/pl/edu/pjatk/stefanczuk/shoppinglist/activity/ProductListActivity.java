@@ -1,4 +1,4 @@
-package pl.edu.pjatk.stefanczuk.shoppinglist.activities;
+package pl.edu.pjatk.stefanczuk.shoppinglist.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import pl.edu.pjatk.stefanczuk.shoppinglist.db.DBManager;
-import pl.edu.pjatk.stefanczuk.shoppinglist.adapters.ProductListAdapter;
+import pl.edu.pjatk.stefanczuk.shoppinglist.adapter.ProductListAdapter;
 import pl.edu.pjatk.stefanczuk.shoppinglist.R;
 
 public class ProductListActivity extends Activity {

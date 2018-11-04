@@ -9,17 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.OptionsActivity" />
-        <activity android:name=".activities.ProductListActivity" />
-        <activity android:name=".activities.AddProductActivity" />
-        <activity android:name=".activities.EditProductActivity"></activity>
+        <activity android:name=".activity.OptionsActivity" />
+        <activity android:name=".activity.ProductListActivity" />
+        <activity android:name=".activity.AddProductActivity" />
+        <activity android:name=".activity.EditProductActivity"></activity>
+
+        <provider
+            android:name=".provider.ProductsProvider"
+            android:authorities="pl.edu.pjatk.stefanczuk.shoppinglist.provider.Products"
+            android:exported="true">
+        </provider>
     </application>
 
 </manifest>

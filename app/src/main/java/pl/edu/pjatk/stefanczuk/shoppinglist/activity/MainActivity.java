@@ -1,17 +1,23 @@
-package pl.edu.pjatk.stefanczuk.shoppinglist.activities;
+package pl.edu.pjatk.stefanczuk.shoppinglist.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Objects;
 
 import pl.edu.pjatk.stefanczuk.shoppinglist.R;
-import pl.edu.pjatk.stefanczuk.shoppinglist.enums.Color;
-import pl.edu.pjatk.stefanczuk.shoppinglist.enums.Size;
+import pl.edu.pjatk.stefanczuk.shoppinglist.constant.Color;
+import pl.edu.pjatk.stefanczuk.shoppinglist.constant.Size;
+import pl.edu.pjatk.stefanczuk.shoppinglist.db.DBHelper;
 
 public class MainActivity extends Activity {
 

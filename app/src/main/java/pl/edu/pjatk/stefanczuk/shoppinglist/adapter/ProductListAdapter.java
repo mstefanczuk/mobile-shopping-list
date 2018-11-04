@@ -1,4 +1,4 @@
-package pl.edu.pjatk.stefanczuk.shoppinglist.adapters;
+package pl.edu.pjatk.stefanczuk.shoppinglist.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,9 +17,9 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import pl.edu.pjatk.stefanczuk.shoppinglist.R;
-import pl.edu.pjatk.stefanczuk.shoppinglist.activities.EditProductActivity;
+import pl.edu.pjatk.stefanczuk.shoppinglist.activity.EditProductActivity;
 import pl.edu.pjatk.stefanczuk.shoppinglist.db.DBManager;
-import pl.edu.pjatk.stefanczuk.shoppinglist.db.DatabaseHelper;
+import pl.edu.pjatk.stefanczuk.shoppinglist.db.DBHelper;
 import pl.edu.pjatk.stefanczuk.shoppinglist.model.Product;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
@@ -74,11 +74,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     private void addProductToList(Cursor cursor) {
         Product product = new Product();
-        product.setId(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.ID)));
-        product.setName(cursor.getString(cursor.getColumnIndex(DatabaseHelper.NAME)));
-        product.setQuantity(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.QUANTITY)));
-        product.setPrice(cursor.getDouble(cursor.getColumnIndex(DatabaseHelper.PRICE)));
-        product.setBought(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.IS_BOUGHT)) == 1);
+        product.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.ID)));
+        product.setName(cursor.getString(cursor.getColumnIndex(DBHelper.NAME)));
+        product.setQuantity(cursor.getInt(cursor.getColumnIndex(DBHelper.QUANTITY)));
+        product.setPrice(cursor.getDouble(cursor.getColumnIndex(DBHelper.PRICE)));
+        product.setBought(cursor.getInt(cursor.getColumnIndex(DBHelper.IS_BOUGHT)) == 1);
         productList.add(product);
     }
 
