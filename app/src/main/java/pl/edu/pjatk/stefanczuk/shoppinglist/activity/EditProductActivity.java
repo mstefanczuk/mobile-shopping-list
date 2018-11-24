@@ -20,15 +20,20 @@ public class EditProductActivity extends Activity {
 
     private DBManager dbManager;
 
-    private int editedProductId;
+    private long editedProductId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
         initViewComponents();
-        fillViewComponentsWithData();
         initDbManager();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fillViewComponentsWithData();
     }
 
     public void handleSaveButtonClicked(View view) {
@@ -54,14 +59,14 @@ public class EditProductActivity extends Activity {
 
     private void fillViewComponentsWithData() {
         Intent intent = getIntent();
-        editedProductId = intent.getIntExtra("editedProductId", -1);
+        editedProductId = intent.getLongExtra("productId", -1);
         if (editedProductId == -1) {
             showErrorMessageAndFinishActivity();
         }
-        editedNameEditText.setText(intent.getStringExtra("editedProductName"));
-        editedQuantityEditText.setText(String.valueOf(intent.getIntExtra("editedProductQuantity", 0)));
-        editedPriceEditText.setText(String.valueOf(intent.getDoubleExtra("editedProductPrice", 0)));
-        editedIsBoughtSwitch.setChecked(intent.getBooleanExtra("editedProductIsBought", false));
+        editedNameEditText.setText(intent.getStringExtra("productName"));
+        editedQuantityEditText.setText(String.valueOf(intent.getIntExtra("productQuantity", 0)));
+        editedPriceEditText.setText(String.valueOf(intent.getDoubleExtra("productPrice", 0)));
+        editedIsBoughtSwitch.setChecked(intent.getBooleanExtra("productIsBought", false));
     }
 
     private void showErrorMessageAndFinishActivity() {

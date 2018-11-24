@@ -101,7 +101,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         @Override
         public void onClick(View v) {
-            startEditActivity();
+            goToEditProductActivity();
         }
 
         private void initViewComponents() {
@@ -126,13 +126,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             });
         }
 
-        private void startEditActivity() {
+        private void goToEditProductActivity() {
             Intent intent = new Intent(context, EditProductActivity.class);
-            intent.putExtra("editedProductId", product.getId());
-            intent.putExtra("editedProductName", product.getName());
-            intent.putExtra("editedProductQuantity", product.getQuantity());
-            intent.putExtra("editedProductPrice", product.getPrice());
-            intent.putExtra("editedProductIsBought", product.isBought());
+            intent.putExtra("productId", product.getId());
+            intent.putExtra("productName", product.getName());
+            intent.putExtra("productQuantity", product.getQuantity());
+            intent.putExtra("productPrice", product.getPrice());
+            intent.putExtra("productIsBought", product.isBought());
             context.startActivity(intent);
         }
     }

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pl.edu.pjatk.stefanczuk.shoppinglist">
 
+    <uses-permission android:name="pl.edu.pjatk.stefanczuk.shoppinglistbroadcastreceiver.permissions.PERMISSION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,13 +21,16 @@
         <activity android:name=".activity.OptionsActivity" />
         <activity android:name=".activity.ProductListActivity" />
         <activity android:name=".activity.AddProductActivity" />
-        <activity android:name=".activity.EditProductActivity"></activity>
+        <activity android:name=".activity.EditProductActivity" />
 
         <provider
             android:name=".provider.ProductsProvider"
             android:authorities="pl.edu.pjatk.stefanczuk.shoppinglist.provider.Products"
-            android:exported="true">
-        </provider>
+            android:exported="true"></provider>
+
+        <activity
+            android:name=".activity.NotificationHandlerActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

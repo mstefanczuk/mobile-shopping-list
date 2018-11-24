@@ -7,6 +7,7 @@
     <string name="save_button_text">ZAPISZ</string>
     <string name="delete_button_text">USUŃ</string>
     <string name="add_button_text">DODAJ</string>
+    <string name="edit_button_text">EDYTUJ</string>
 
     <string name="saved_toast_text">Zapisano</string>
 
@@ -37,6 +38,7 @@
 
     <string name="fields_warning_message">Wszystkie pola muszą być wypełnione</string>
     <string name="loading_product_error_message">Błąd: nie udało się wczytać produktu</string>
+    <string name="nonexistent_product_message">Produkt nie istnieje</string>
 
     <string name="price_pattern">%.2fzł</string>
 </resources>
