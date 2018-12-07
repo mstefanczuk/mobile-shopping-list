@@ -2,7 +2,6 @@ package pl.edu.pjatk.stefanczuk.shoppinglist.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,30 +10,24 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import lombok.Getter;
 import lombok.Setter;
 import pl.edu.pjatk.stefanczuk.shoppinglist.R;
 import pl.edu.pjatk.stefanczuk.shoppinglist.activity.EditProductActivity;
-import pl.edu.pjatk.stefanczuk.shoppinglist.db.DBManager;
-import pl.edu.pjatk.stefanczuk.shoppinglist.db.DBHelper;
 import pl.edu.pjatk.stefanczuk.shoppinglist.model.Product;
 
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ViewHolder> {
+public class ProductListAdapter extends FirebaseRecyclerAdapter<Product, ProductListAdapter.ViewHolder> {
 
-    private List<Product> productList;
-    private Cursor cursor;
     private Context context;
-    private DBManager dbManager;
 
-    public ProductListAdapter(Cursor cursor, Context context) {
-        this.cursor = cursor;
+    public ProductListAdapter(FirebaseRecyclerOptions<Product> options, Context context) {
+        super(options);
         this.context = context;
-        dbManager = new DBManager(context);
-        dbManager.open();
-        retrieveDataFromCursor();
     }
 
     @NonNull
@@ -46,8 +39,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Product product = productList.get(i);
+    protected void onBindViewHolder(@NonNull ViewHolder viewHolder, int position, @NonNull Product product) {
         viewHolder.setProduct(product);
         viewHolder.getPriceTextView().setText(String.format(context.getString(R.string.price_pattern),
                 product.getPrice()));
@@ -58,28 +50,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         } else {
             viewHolder.getIsBoughtCheckbox().setChecked(false);
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return productList.size();
-    }
-
-    private void retrieveDataFromCursor() {
-        productList = new ArrayList<>();
-        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-            addProductToList(cursor);
-        }
-    }
-
-    private void addProductToList(Cursor cursor) {
-        Product product = new Product();
-        product.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.ID)));
-        product.setName(cursor.getString(cursor.getColumnIndex(DBHelper.NAME)));
-        product.setQuantity(cursor.getInt(cursor.getColumnIndex(DBHelper.QUANTITY)));
-        product.setPrice(cursor.getDouble(cursor.getColumnIndex(DBHelper.PRICE)));
-        product.setBought(cursor.getInt(cursor.getColumnIndex(DBHelper.IS_BOUGHT)) == 1);
-        productList.add(product);
     }
 
     @Getter
@@ -120,8 +90,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 @Override
                 public void onClick(View v) {
                     product.setBought(!product.isBought());
-                    dbManager.update(product.getId(), product.getName(), product.getQuantity(),
-                            product.getPrice(), product.isBought());
+                    String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    FirebaseDatabase
+                            .getInstance()
+                            .getReference()
+                            .child("products")
+                            .child(currentUserUid)
+                            .child(product.getId())
+                            .child("bought")
+                            .setValue(product.isBought());
                 }
             });
         }

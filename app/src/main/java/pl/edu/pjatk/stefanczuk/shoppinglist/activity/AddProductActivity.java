@@ -7,12 +7,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import pl.edu.pjatk.stefanczuk.shoppinglist.db.DBManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import pl.edu.pjatk.stefanczuk.shoppinglist.R;
 
 public class AddProductActivity extends Activity {
 
-    private DBManager dbManager;
     private EditText addedNameEditText;
     private EditText addedQuantityEditText;
     private EditText addedPriceEditText;
@@ -22,7 +27,6 @@ public class AddProductActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
         initViewComponents();
-        initDbManager();
     }
 
     public void handleSaveButtonClicked(View view) {
@@ -32,11 +36,6 @@ public class AddProductActivity extends Activity {
         }
         createNewProduct();
         returnToProductListActivity();
-    }
-
-    private void initDbManager() {
-        dbManager = new DBManager(this);
-        dbManager.open();
     }
 
     private void initViewComponents() {
@@ -57,9 +56,21 @@ public class AddProductActivity extends Activity {
 
     private void createNewProduct() {
         String name = addedNameEditText.getText().toString();
-        int quantity = Integer.parseInt(addedQuantityEditText.getText().toString());
-        double price = Double.parseDouble(addedPriceEditText.getText().toString());
-        dbManager.insert(name, quantity, price, false);
+        String quantity = addedQuantityEditText.getText().toString();
+        String price = addedPriceEditText.getText().toString();
+        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child("products")
+                .child(currentUserUid)
+                .push();
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", databaseReference.getKey());
+        map.put("name", name);
+        map.put("quantity", quantity);
+        map.put("price", price);
+        map.put("bought", false);
+
+        databaseReference.setValue(map);
     }
 
     private void returnToProductListActivity() {

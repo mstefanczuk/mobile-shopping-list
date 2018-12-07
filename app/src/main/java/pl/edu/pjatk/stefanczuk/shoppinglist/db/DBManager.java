@@ -87,6 +87,7 @@ public class DBManager {
         intent.putExtra("productPrice", price);
         intent.putExtra("productIsBought", false);
         intent.setAction("shoppinglist.notification");
-        context.sendBroadcast(intent);
+        context.sendBroadcast(intent,
+                "pl.edu.pjatk.stefanczuk.shoppinglistbroadcastreceiver.permissions.PERMISSION");
     }
 }

@@ -8,7 +8,12 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import pl.edu.pjatk.stefanczuk.shoppinglist.db.DBManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import pl.edu.pjatk.stefanczuk.shoppinglist.R;
 
 public class EditProductActivity extends Activity {
@@ -18,16 +23,13 @@ public class EditProductActivity extends Activity {
     private EditText editedPriceEditText;
     private Switch editedIsBoughtSwitch;
 
-    private DBManager dbManager;
-
-    private long editedProductId;
+    private String editedProductId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
         initViewComponents();
-        initDbManager();
     }
 
     @Override
@@ -46,7 +48,14 @@ public class EditProductActivity extends Activity {
     }
 
     public void deleteProduct(View view) {
-        dbManager.delete(editedProductId);
+        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("products")
+                .child(currentUserUid)
+                .child(editedProductId)
+                .setValue(null);
         finish();
     }
 
@@ -59,8 +68,8 @@ public class EditProductActivity extends Activity {
 
     private void fillViewComponentsWithData() {
         Intent intent = getIntent();
-        editedProductId = intent.getLongExtra("productId", -1);
-        if (editedProductId == -1) {
+        editedProductId = intent.getStringExtra("productId");
+        if (editedProductId == null) {
             showErrorMessageAndFinishActivity();
         }
         editedNameEditText.setText(intent.getStringExtra("productName"));
@@ -74,11 +83,6 @@ public class EditProductActivity extends Activity {
         finish();
     }
 
-    private void initDbManager() {
-        dbManager = new DBManager(this);
-        dbManager.open();
-    }
-
     private boolean isAnyFieldEmpty() {
         return editedNameEditText.getText().toString().isEmpty()
                 || editedQuantityEditText.getText().toString().isEmpty()
@@ -90,9 +94,19 @@ public class EditProductActivity extends Activity {
     }
 
     private void updateProduct() {
-        dbManager.update(editedProductId, editedNameEditText.getText().toString(),
-                Integer.valueOf(editedQuantityEditText.getText().toString()),
-                Double.valueOf(editedPriceEditText.getText().toString()),
-                editedIsBoughtSwitch.isChecked());
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", editedProductId);
+        map.put("name", editedNameEditText.getText().toString());
+        map.put("quantity", editedQuantityEditText.getText().toString());
+        map.put("price", editedPriceEditText.getText().toString());
+        map.put("bought", editedIsBoughtSwitch.isChecked());
+        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child("products")
+                .child(currentUserUid)
+                .child(editedProductId)
+                .setValue(map);
     }
 }
