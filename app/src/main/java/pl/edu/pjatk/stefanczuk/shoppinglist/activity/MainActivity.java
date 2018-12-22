@@ -48,6 +48,11 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+    public void goToMapsActivity(View view) {
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
+    }
+
     public void goToProductListActivity(View view) {
         Intent intent = new Intent(this, ProductListActivity.class);
         startActivity(intent);

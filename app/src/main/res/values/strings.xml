@@ -3,6 +3,7 @@
 
     <string name="go_to_product_list_activity_button_text">LISTA ZAKUPÓW</string>
     <string name="go_to_options_activity_button_text">OPCJE</string>
+    <string name="go_to_maps_activity_button_text">MAPA</string>
 
     <string name="save_button_text">ZAPISZ</string>
     <string name="delete_button_text">USUŃ</string>
@@ -56,4 +57,5 @@
     <string name="error_incorrect_password">Niepoprawne hasło</string>
     <string name="error_field_required">To pole jest wymagane</string>
     <string name="user_created">Utworzono użytkownika</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

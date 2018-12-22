@@ -61,6 +61,15 @@
             tools:layout_editor_absoluteX="33dp"
             tools:layout_editor_absoluteY="283dp" />
 
+        <Button
+            android:id="@+id/goToMapButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="goToMapsActivity"
+            android:text="@string/go_to_maps_activity_button_text"
+            tools:layout_editor_absoluteX="33dp"
+            tools:layout_editor_absoluteY="283dp" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
