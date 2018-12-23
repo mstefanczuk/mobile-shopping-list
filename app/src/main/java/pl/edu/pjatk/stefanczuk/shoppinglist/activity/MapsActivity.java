@@ -91,7 +91,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mDatabase = FirebaseDatabase.getInstance().getReference();
         String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        mDatabase.child("shops").child(currentUserUid).addListenerForSingleValueEvent(
+        mDatabase.child("shops").child(currentUserUid).orderByChild("favourite").equalTo(true).addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

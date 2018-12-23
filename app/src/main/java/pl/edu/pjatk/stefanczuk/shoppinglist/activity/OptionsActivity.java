@@ -76,12 +76,12 @@ public class OptionsActivity extends AppCompatActivity {
         map.put("id", databaseReference.getKey());
         map.put("name", "Empik");
         map.put("helloMessage", "Witamy w Empik!");
-        map.put("goodbyeMessage", "Wróć jeszcze do Empik!");
+        map.put("goodbyeMessage", "Wróć jeszcze kiedyś do Empik!");
         map.put("promoMessage", "Promocja dnia: wszystkie książki za 0zł");
         map.put("radius", 200);
         map.put("latitude", 52.230220);
         map.put("longitude", 21.002887);
-        map.put("favourite", false);
+        map.put("favourite", true);
         databaseReference.setValue(map);
 
         databaseReference = FirebaseDatabase.getInstance().getReference()
@@ -92,12 +92,12 @@ public class OptionsActivity extends AppCompatActivity {
         map.put("id", databaseReference.getKey());
         map.put("name", "H&M");
         map.put("helloMessage", "Witamy w H&M!");
-        map.put("goodbyeMessage", "Wróć jeszcze do H&M!");
+        map.put("goodbyeMessage", "Wróć jeszcze kiedyś do H&M!");
         map.put("promoMessage", "Promocja dnia: 10 koszulek w cenie 1");
         map.put("radius", 200);
         map.put("latitude", 52.213477);
         map.put("longitude", 21.021086);
-        map.put("favourite", false);
+        map.put("favourite", true);
         databaseReference.setValue(map);
 
         databaseReference = FirebaseDatabase.getInstance().getReference()
@@ -108,12 +108,12 @@ public class OptionsActivity extends AppCompatActivity {
         map.put("id", databaseReference.getKey());
         map.put("name", "Vistula");
         map.put("helloMessage", "Witamy w Vistula!");
-        map.put("goodbyeMessage", "Wróć jeszcze do Vistula!");
+        map.put("goodbyeMessage", "Wróć jeszcze kiedyś do Vistula!");
         map.put("promoMessage", "Promocja dnia: Kup krawat - garnitur odbierz za darmo");
         map.put("radius", 200);
         map.put("latitude", 52.212774);
         map.put("longitude", 20.954553);
-        map.put("favourite", false);
+        map.put("favourite", true);
         databaseReference.setValue(map);
     }
 }
